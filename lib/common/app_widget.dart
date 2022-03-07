@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
-import 'homepage.dart';
+import '../modules/dashboard/presenter/homepage.dart';
 
 class AppWidget extends StatelessWidget {
   // usa-se para coisas estáticas

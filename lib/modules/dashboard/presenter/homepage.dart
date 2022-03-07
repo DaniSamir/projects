@@ -1,8 +1,10 @@
-import 'dart:convert';
-import 'package:app_flutter/app_controller.dart';
+/* import 'dart:convert';
+import 'package:app_flutter/common/app_controller.dart';
+import 'package:app_flutter/common/OrgsMenuCard.dart';
+import 'package:app_flutter/modules/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'core/apiexterna_http.dart';
+import '../../../core/apiexterna_http.dart';
 
 class HomePage extends StatefulWidget {
   // para quando precisar de mudança de estado - StatefulWidget
@@ -109,11 +111,15 @@ class HomePage2 extends State<HomePage> {
                 child: GestureDetector(
           child: Text("Daniella: $counter", style: TextStyle(fontSize: 60)),
           onTap: () {},))),*/
+
       floatingActionButton: FloatingActionButton.extended(
         //filho
         onPressed: () {
           setState(() {
-            counter++;
+            () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false);
           });
         },
         label: const Text('Adicionando'),
@@ -137,7 +143,66 @@ class CustomSwitch extends StatelessWidget {
           AppController.instance.changeTheme();
         });
   }
+} */
+
+import 'package:app_flutter/common/orgsdrawer.dart';
+import 'package:app_flutter/core/apiexterna_http.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class HomePage extends StatefulWidget {
+  // para quando precisar de mudança de estado - StatefulWidget
+  @override
+  State<HomePage> createState() {
+    return HomePage2();
+  }
 }
 
+class HomePage2 extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
 
-//ver o get
+    return Scaffold(
+      appBar: AppBar(
+        //filho
+        actions: [
+          // CustomSwitch(), // componentização é reaproveitamento de código
+        ],
+        title: Text("Início"),
+      ),
+      key: _scaffoldKey,
+      backgroundColor: Colors.grey[100],
+      drawer: OrgsDrawer(),
+      body: FutureBuilder<List>(
+        future: pegarUsuarios(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Erro ao carregar usuários'),
+            );
+          }
+
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(snapshot.data![index]['name']),
+                    subtitle: Text(snapshot.data![index]['username']),
+                  );
+                });
+          }
+
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+}

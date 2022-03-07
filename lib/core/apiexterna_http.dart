@@ -44,10 +44,10 @@ class Todo {
       this.completed}); // para transformar em argumentos nomeado, basta inserir {}
 }*/
 
-import 'package:app_flutter/homepage.dart';
+import 'package:app_flutter/modules/dashboard/presenter/homepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:app_flutter/app_controller.dart';
+import 'package:app_flutter/common/app_controller.dart';
 import 'package:http/http.dart' as http;
 
 Future<List> pegarUsuarios() async {
