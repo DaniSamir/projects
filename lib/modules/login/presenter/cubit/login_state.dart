@@ -1,4 +1,4 @@
-part of 'login_bloc.dart';
+part of 'login_cubit.dart';
 
 // aqui irá a lógica do cubit
 @immutable

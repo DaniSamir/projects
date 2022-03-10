@@ -1,6 +1,6 @@
 import 'package:app_flutter/config/app_widget.dart';
 import 'package:app_flutter/modules/dashboard/presenter/homepage.dart';
-import 'package:app_flutter/modules/login/presenter/cubit/login_bloc.dart';
+import 'package:app_flutter/modules/login/presenter/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -45,6 +45,7 @@ class LoginScreen extends StatelessWidget {
               constraints: BoxConstraints.tightFor(width: double.infinity),
               child: ElevatedButton(
                 onPressed: () => Navigator.push(
+                  //mudar para a página do Inicio
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 ),

@@ -23,4 +23,9 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginThirdTime());
     }
   }
+
+  Future<void> resetNextGree() async {
+    howManyTimes = 1;
+    emit(LoginInitial());
+  }
 }

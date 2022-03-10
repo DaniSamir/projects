@@ -145,9 +145,10 @@ class CustomSwitch extends StatelessWidget {
   }
 } */
 
+import 'package:app_flutter/common/app_colors.dart';
 import 'package:app_flutter/common/orgsdrawer.dart';
 import 'package:app_flutter/core/apiexterna_http.dart';
-import 'package:app_flutter/modules/login/presenter/cubit/login_bloc.dart';
+import 'package:app_flutter/modules/login/presenter/cubit/login_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -171,51 +172,51 @@ class HomePage2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //filho
+        backgroundColor: AppColors.pink,
         actions: [
           //CustomSwitch(), // componentização é reaproveitamento de código
         ],
-        title: Column(
-          children: [
-            TextButton(
-                // Vai fazer o estado mudar
-                onPressed: () {
-                  final loggincubit = context.read<
-                      LoginCubit>(); //atribui a mudança de estado a variavel logginCubit
-                  loggincubit
-                      .getNextGree(); //aqui acessei a nova variavel e accessei o getNext que tem a logica de alterar os estados
-                },
-                child: Text('Mudança de Estado')),
-            TextMessage(),
-          ],
-        ),
+        title: TextMessage(),
       ),
       key: _scaffoldKey,
       backgroundColor: Colors.grey[100],
       drawer: OrgsDrawer(),
-      body: FutureBuilder<List>(
-        future: pegarUsuarios(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
+      body: Center(
+        child: FutureBuilder<List>(
+          future: pegarUsuarios(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Erro ao carregar usuários'),
+              );
+            }
+
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(snapshot.data![index]['name']),
+                      subtitle: Text(snapshot.data![index]['username']),
+                    );
+                  });
+            }
+
             return Center(
-              child: Text('Erro ao carregar usuários'),
+              child: CircularProgressIndicator(),
             );
-          }
-
-          if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data![index]['name']),
-                    subtitle: Text(snapshot.data![index]['username']),
-                  );
-                });
-          }
-
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.pink,
+        onPressed: () {
+          final loggincubit = context.read<
+              LoginCubit>(); //atribui a mudança de estado a variavel logginCubit
+          loggincubit.getNextGree();
+        }, //aqui acessei a nova variavel e accessei o getNext que tem a logica de alterar os estados ,
+        tooltip: 'Changes',
+        child: Icon(Icons.next_plan),
       ),
     );
   }
@@ -232,13 +233,14 @@ class TextMessage extends StatelessWidget {
         String message = ''; // criei variavel para guardar os tipos de mensagem
 
         if (state is LoginInitial) {
-          message = 'Inicio 1';
+          // Condições para que apareça cada tipo de tela
+          message = 'Tela Inicial';
         } else if (state is LoginSecondTime) {
-          message = 'Inicio 2';
+          message = 'Segunda Tela';
         } else if (state is LoginThirdTime) {
-          message = 'Inicio 3';
+          message = 'Terceira Tela';
         } else {
-          message = 'Sem Inicio';
+          message = 'Sem tela';
         }
 
         return Text(

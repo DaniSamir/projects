@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:app_flutter/config/login.dart';
+import 'package:app_flutter/modules/login/presenter/login.dart';
 import 'package:app_flutter/modules/dashboard/presenter/homepage.dart';
-import 'package:app_flutter/modules/login/presenter/cubit/login_bloc.dart';
+import 'package:app_flutter/modules/login/presenter/cubit/login_cubit.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
