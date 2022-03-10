@@ -47,7 +47,7 @@ class Todo {
 import 'package:app_flutter/modules/dashboard/presenter/homepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:app_flutter/common/app_controller.dart';
+import 'package:app_flutter/config/app_controller.dart';
 import 'package:http/http.dart' as http;
 
 Future<List> pegarUsuarios() async {

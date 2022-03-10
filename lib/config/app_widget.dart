@@ -1,6 +1,5 @@
+import 'package:app_flutter/config/app_controller.dart';
 import 'package:flutter/material.dart';
-
-import 'app_controller.dart';
 import '../modules/dashboard/presenter/homepage.dart';
 
 class AppWidget extends StatelessWidget {
@@ -33,7 +32,7 @@ class AppWidget extends StatelessWidget {
                 : Brightness
                     .light, //for verdadeiro (?) ele será brigtheness.dark, se não(:) ele será brig..light,
           ),
-          home: HomePage(),
+          home: HomePage2(),
         );
       },
     );

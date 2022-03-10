@@ -1,7 +1,7 @@
-import 'package:app_flutter/common/OrgsMenuCard.dart';
+import 'package:app_flutter/config/app_menucard.dart';
 import 'package:app_flutter/common/app_colors.dart';
-import 'package:app_flutter/modules/login/login.dart';
-import 'package:app_flutter/modules/login/presenter/home_screen.dart';
+import 'package:app_flutter/config/login.dart';
+import 'package:app_flutter/config/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MenuScreen extends StatelessWidget {

@@ -1,10 +1,9 @@
 import 'package:app_flutter/common/app_colors.dart';
 import 'package:app_flutter/common/app_images.dart';
-import 'package:app_flutter/modules/login/presenter/home_screen.dart';
-import 'package:app_flutter/modules/login/singup_screen.dart';
+import 'package:app_flutter/config/login.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class SingupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Login',
+              'Criar uma conta',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 26),
             ),
           ),
@@ -33,6 +32,13 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), hintText: 'Nome completo'),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: TextField(
               decoration: InputDecoration(
@@ -40,19 +46,23 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), hintText: 'Confirmar senha'),
+            ),
+          ),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: double.infinity),
               child: ElevatedButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                ),
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   primary: AppColors.green, // background
                   onPrimary: Colors.white, // foreground
                 ),
-                child: Text('Entrar'),
+                child: Text('Cadastrar-me'),
               ),
             ),
           ),
@@ -62,18 +72,16 @@ class LoginScreen extends StatelessWidget {
               vertical: 10,
             ),
             child: GestureDetector(
-              onTap: () async {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SingupScreen()),
-                    (route) => false);
-              },
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              ),
               child: Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.all(8),
                 child: Center(
                     child: Text(
-                  'Não tem uma conta?',
+                  'Já tenho uma conta',
                   style: TextStyle(
                       color: AppColors.green,
                       fontWeight: FontWeight.w600,
@@ -82,27 +90,6 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: double.maxFinite,
-                padding: const EdgeInsets.all(8),
-                child: Center(
-                    child: Text(
-                  'Esqueci minha senha',
-                  style: TextStyle(
-                      color: AppColors.green,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14),
-                )),
-              ),
-            ),
-          )
         ],
       ),
     ));

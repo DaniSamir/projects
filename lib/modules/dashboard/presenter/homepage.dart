@@ -147,33 +147,47 @@ class CustomSwitch extends StatelessWidget {
 
 import 'package:app_flutter/common/orgsdrawer.dart';
 import 'package:app_flutter/core/apiexterna_http.dart';
+import 'package:app_flutter/modules/login/presenter/cubit/login_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
+/*class HomePage extends StatefulWidget {
   // para quando precisar de mudança de estado - StatefulWidget
   @override
   State<HomePage> createState() {
     return HomePage2();
   }
-}
+} */
 
-class HomePage2 extends State<HomePage> {
+class HomePage2 extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey =
-        new GlobalKey<ScaffoldState>();
-
     return Scaffold(
       appBar: AppBar(
         //filho
         actions: [
-          // CustomSwitch(), // componentização é reaproveitamento de código
+          //CustomSwitch(), // componentização é reaproveitamento de código
         ],
-        title: Text("Início"),
+        title: Column(
+          children: [
+            TextButton(
+                // Vai fazer o estado mudar
+                onPressed: () {
+                  final loggincubit = context.read<
+                      LoginCubit>(); //atribui a mudança de estado a variavel logginCubit
+                  loggincubit
+                      .getNextGree(); //aqui acessei a nova variavel e accessei o getNext que tem a logica de alterar os estados
+                },
+                child: Text('Mudança de Estado')),
+            TextMessage(),
+          ],
+        ),
       ),
       key: _scaffoldKey,
       backgroundColor: Colors.grey[100],
@@ -203,6 +217,35 @@ class HomePage2 extends State<HomePage> {
           );
         },
       ),
+    );
+  }
+}
+
+class TextMessage extends StatelessWidget {
+  TextMessage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      // Aqui estou chamando o Bloc Builder para que o cubit faça o gerenciamento do estado a cada mudança
+      builder: (context, state) {
+        String message = ''; // criei variavel para guardar os tipos de mensagem
+
+        if (state is LoginInitial) {
+          message = 'Inicio 1';
+        } else if (state is LoginSecondTime) {
+          message = 'Inicio 2';
+        } else if (state is LoginThirdTime) {
+          message = 'Inicio 3';
+        } else {
+          message = 'Sem Inicio';
+        }
+
+        return Text(
+          message,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        );
+      },
     );
   }
 }
